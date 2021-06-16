@@ -1,33 +1,9 @@
-#############################################################################
-#DATA RETRIEVAL FROM COVID19.ORG FOR INDIA AND ANALYSIS USING RECON LIBRARIES
-#############################################################################
-# Project Name: Data retrieval from COVID19.ORG for Maharashtra and analysis using RECON libraries
-# Creater: Preshit Ambade
+##########################################################################################
+#DATA RETRIEVAL FROM COVID19.ORG FOR MAHARASHTRA INDIA AND ANALYSIS USING RECON LIBRARIES
+##########################################################################################
+# Project Name: COVID-19 Pandemic: Did harsh mobility restrictions save lives and cost in Maharashtra, India?
+# Creator: Preshit Ambade
 # Date: 25 November 2020
-#links to follow:
-#https://api.covid19india.org
-#https://api.covid19india.org/csv/
-#https://timchurches.github.io/blog/posts/2020-02-18-analysing-covid-19-2019-ncov-outbreak-data-with-r-part-1/
-#https://timchurches.github.io/blog/posts/2020-03-01-analysing-covid-19-2019-ncov-outbreak-data-with-r-part-2/
-
-## Open following links in browser
-##https://timchurches.github.io/blog/posts/2020-02-18-analysing-covid-19-2019-ncov-outbreak-data-with-r-part-1/
-##https://www.repidemicsconsortium.org/projects/
-##http://statnet.org/tut/NewDCMs.html
-##https://publons.com/publon/covid-19/?title=PPE%20per%20patient&sort_by=relevance
-##https://mathbitsnotebook.com/Algebra2/Exponential/EXGrowthDecay.html
-##https://twitter.com/maha_medd?lang=en
-##https://github.com/timchurches/blog/blob/master/_posts/2020-02-18-analysing-covid-19-2019-ncov-outbreak-data-with-r-part-1/analysing-covid-19-2019-ncov-outbreak-data-with-r-part-1.Rmd
-##https://api.covid19india.org/csv/
-##https://api.covid19india.org
-##https://timchurches.github.io/blog/posts/2020-03-18-modelling-the-effects-of-public-health-interventions-on-covid-19-transmission-part-2/
-##https://timchurches.github.io/blog/posts/2020-03-10-modelling-the-effects-of-public-health-interventions-on-covid-19-transmission-part-1/
-##https://github.com/timchurches/blog/blob/master/_posts/2020-03-01-analysing-covid-19-2019-ncov-outbreak-data-with-r-part-2/analysing-covid-19-2019-ncov-outbreak-data-with-r-part-2.Rmd
-##https://timchurches.github.io/blog/posts/2020-03-01-analysing-covid-19-2019-ncov-outbreak-data-with-r-part-2/
-##https://timchurches.github.io/blog/posts/2020-02-18-analysing-covid-19-2019-ncov-outbreak-data-with-r-part-1/
-##https://timchurches.github.io/blog/
-##https://rviews.rstudio.com/2020/03/05/covid-19-epidemiology-with-r/
-##https://rviews.rstudio.com/2020/03/19/simulating-covid-19-interventions-with-r/
 #################################################################################################################################
 
 # analysis for entire maharashtra state
@@ -37,7 +13,7 @@ rm(list = ls()) #Clears everything
 
 
 # #download state_wise_daily data
-# file_state_wise_daily <- paste0("/Users/preshitambade/Downloads/Corona-CEA/1-COVID-19_CEA_study/2-COVID-19-Model/5-Epimodel_demo/1_epimodel_data/7_other_rawfiles/raw_state_wise_daily_", 
+# file_state_wise_daily <- paste0("/Users/preshitambade/Downloads/raw_state_wise_daily_", 
 #                                 format(Sys.time(), "%Y-%m-%d-%H-%M-%S-AZMST", tz = "MST"), ".csv")                   
 # 
 # 
@@ -48,9 +24,15 @@ rm(list = ls()) #Clears everything
 # statedf<-read.csv(file_state_wise_daily,
 #                   header = T, na.strings=c("","NA"))  #this file is manually created. blank cells in string variable changed to NA
 
+
+setwd("/Users/preshitambade/OneDrive/Projects/2_MH_COVID19/Corona-CEA/1-COVID-19_CEA_study/2-COVID-19-Model/4-Study manuscript drafts/MH-COVID-19_BMJGHfiles_8June2021/MHstudy_publiccodes")
+
+
 library(readr)
-statedf<-read.csv("/Users/preshitambade/Downloads/Corona-CEA/1-COVID-19_CEA_study/2-COVID-19-Model/5-Epimodel_demo/1_epimodel_data/7_other_rawfiles/raw_state_wise_daily_2020-06-01-08-33-52-AZMST.csv",
+statedf<-read.csv("raw_state_wise_daily_2020-06-01-08-33-52-AZMST.csv",
                   header = T, na.strings=c("","NA"), stringsAsFactors = FALSE)  #this file is manually created. blank cells in string variable changed to NA
+
+
 #############################################
 #THIS CSV FILE CONTAINS DATA UPTO 31 MAY2020#
 #############################################
@@ -80,19 +62,6 @@ str(mahadata, strict.width = "cut", width = 76) #to know dataframe structure
 
 rm(new_mahadata)
 
-
-# to add to the bottom use following
-# mahadata[nrow(mahadata) +1, ] <- c("13-Mar-20", "Confirmed", 11)
-# mahadata[nrow(mahadata) +1, ] <- c("12-Mar-20", "Confirmed", 0)
-# mahadata[nrow(mahadata) +1, ] <- c("11-Mar-20", "Confirmed", 11)
-# mahadata[nrow(mahadata) +1, ] <- c("10-Mar-20", "Confirmed", 4)
-# mahadata[nrow(mahadata) +1, ] <- c("09-Mar-20", "Confirmed", 3)
-# tail(mahadata,10)  #cross-check of rows are added
-
-#converting class of variables to its originals
-# mahadata$Date <- as.factor(mahadata$Date)
-# mahadata$Status <- as.factor(mahadata$Status)
-# mahadata$MH <- as.numeric(mahadata$MH)
 
 str(mahadata, strict.width = "cut", width = 76) #to know dataframe structure
 
@@ -171,12 +140,6 @@ head(mahadata_status_uncount, 10)
 
 #rm(mahaclean, mahadata, mahadata_status_uncount, mhinci, mhinci_uncount)
 
-# #reordering of data according to descending dates- 
-# #link: https://stackoverflow.com/questions/6246159/how-to-sort-a-data-frame-by-date
-# 
-# mahadata <- mahadata[nrow(mahadata):1,]
-# 
-# head(mahadata,10)
 
 ############################################################
 #modeling 
@@ -199,7 +162,7 @@ library(gridGraphics)
 ########################
 #1. For only incidence
 ########################
-plot_save <- paste0("/Users/preshitambade/Downloads/Corona-CEA/1-COVID-19_CEA_study/2-COVID-19-Model/5-Epimodel_demo/2_epimodel_results/7_epimodel_results_formanuscript_8Dec2020/")     
+#plot_save <- paste0("/Users/preshitambade/Downloads/Corona-CEA/1-COVID-19_CEA_study/2-COVID-19-Model/5-Epimodel_demo/2_epimodel_results/7_epimodel_results_formanuscript_8Dec2020/")     
 
 #1a. creating and plotting incidence object
 maha_incidence_object <- as.incidence(x = mhinci[, 2], dates = mhinci$Date)
@@ -213,47 +176,9 @@ fig1<- plot(maha_incidence_object, color= "blue", border = "white" )+
        subtitle = "(9 March-31 May 2020)")
 fig1
 
-ggsave(path = plot_save, 
-       filename = "1_MH_incidenceplot.tiff") 
+ggsave(filename = "1_MH_incidenceplot.tiff") 
 
 dev.off()  #removes plot from plot window          
-
-#1b. Creating and plotting incidence object for all outcomes
-str(mahadata_status_uncount)
-head(mahadata_status_uncount)
-tail(mahadata_status_uncount)
-
-maha_incidence_status_object <- incidence(mahadata_status_uncount$Date, interval = 1, groups = mahadata_status_uncount$Status )
-
-maha_incidence_status_object
-
-fig2 <- plot(maha_incidence_status_object, stack = TRUE, border = "grey")+
-  labs(title="Daily status of lab-confirmed cases, Maharashtra-India",
-       subtitle = "(9 March-31 May 2020)")            
-
-fig2
-
-#this figure will go in manuscript
-ggsave(path = plot_save, 
-       filename = "2_MH_incidenceplot_manuscript.tiff") 
-
-
-#1f. plotting cumulative incidence
-
-#1f1. for incidence data
-maha_incidence_cum <- cumulate(maha_incidence_object)
-
-maha_incidence_cum
-
-fig5 <- plot(maha_incidence_cum, color = "blue", border = "black")+
-  labs(title="Cumulative incidence of lab-confirmed cases, Maharashtra-India",
-       subtitle = "(9 March-31 May 2020)")
-
-fig5
-
-ggsave(path = plot_save, 
-       filename = "5_MH_cumulative_incidenceplot_manuscript.tiff") 
-
 
 
 ######################
@@ -285,129 +210,6 @@ lock2enddate <- as.Date("2020-05-03") #lockdown-2 end date
 lock3enddate <- as.Date("2020-05-17") #lockdown-3 end date
 
 
-#################################################
-#A.2. Fitting log-linear model to incidence data
-#################################################
-
-#A.2.1. getting linear fit
-incidence.fit <- fit(maha_incidence_object) #fitted model for entire time period
-incidence.fit
-
-plot(incidence.fit)
-
-fig8 <- plot(maha_incidence_object, fit = incidence.fit, color = "blue", border = "white")+
-  labs(title="Daily incidence of lab-confirmed cases and log-linear fit model, Maharashtra-India",
-       subtitle = "(As of 17 May 2020)")
-
-fig8
-
-#Result: Daily Growth Rate: 0.08499638 (CI: 0.07882796 0.09116481)
-# Case doubling time in days: 8.15502 (CI: 7.603231 8.793164)
-# these estimates are for entire study period which doesn't capture the
-# effect of different restrictions imposed/relaxed during different
-# phases of lockdown.
-
-# ggsave(path = plot_save, 
-#        filename = "8_MH_dailyincidence_with_linearfit_plot.tiff") 
-# 
-
-#############################################################################################################
-#Note: if you see growth and decline of cases in data then you can fit two separate models as follows:
-#one way is to find optimal break point (typically around peak) by using optimal split function
-#Another ways is find peak of incidence manually and break data around it
-#However, the cases in MH are in growth phase so no need to fit separate models for growth and decay phase
-
-# Inspite of lockdown the cases are rising in maharashtra but is the infectivity as well?
-#Estimate R0 for three different phases in the state and answer the question in below section
-#############################################################################################################
-
-
-####################################################################################
-#A.3. fitting data upto first lockdown period by splitting it by start of lockdown-1
-####################################################################################
-locksplit_lock1period <- fit(maha_incidence_object[1:37], split = as.Date("2020-03-24"), level = 0.95, quiet = FALSE)
-
-locksplit_lock1period 
-
-
-fig9 <- plot(maha_incidence_object[1:37], color = "gray", border = "white") %>% add_incidence_fit(locksplit_lock1period)+
-  geom_vline(xintercept = lock1startdate, col = "red", lty = 2) +
-  labs(title="Observed and modelled incidence of COVID-19 cases in Maharashtra-India \nfor period 9 March-14 April 2020",
-       subtitle="(red line indicates lockdown-1 start date 25 March 2020)") +
-  theme_bw()
-
-fig9
-
-# Result: It is clear from the locksplit plot graph that before start of lockdown and after have two separate growth rates.
-# Before: daily growth rate: 0.03898104 CI(-0.04563312 0.1235952), doubling time(17.781647), CI (5.608204 -15.189565)
-# After:  daily growth rate: 0.17954538 CI(0.14270789 0.2163829), doubling time(3.860568), CI (3.203337   4.857105)
-# Clearly, the lockdown has made difference.Need to fit data separately for these two periods
-
-
-##################################
-#NEED TO WORK FROM HERE AND BELOW#
-##################################
-#Look at the daily Re during the lockdown phase and see on what date the Re started declining. The high Re, does it 
-# matches with the Vande Bharat and other activities during the same time period?
-# for projections can you use lockdown-1 Re to project cases for lockdown2 and 3? Dr. Pakhale suggested you can do that.
-
-
-
-#Also data can be fit by splitting it at first lockdown end date-but this don't have any usefulness for analysis
-##########################################################################################
-#A.4. splitting data at the end of first lockdown (14th April 2020) for entire time period
-##########################################################################################
-locksplit <- fit(maha_incidence_object, split = as.Date("2020-04-14"), level = 0.95, quiet = FALSE)
-
-locksplit
-
-
-fig10 <- plot(maha_incidence_object, color = "gray", border = "white") %>% add_incidence_fit(locksplit)+
-  geom_vline(xintercept = lock1enddate, col = "red", lty = 2) +
-  labs(title="Observed and modelled incidence of COVID-19 cases in Maharashtra-India \nbefore and after 15 April 2020",
-       subtitle="(red line indicates lockdown-1 end date 14 April 2020)") +
-  theme_bw()
-
-fig10
-
-# ggsave(path = plot_save, 
-#        filename = "10_MH_daily_incidence_with_split_linearfit_plot.tiff") 
-
-
-# Result: It is clear from the locksplit plot graph that before start of lockdown and after have two separate growth rates.
-# Before: daily growth rate: 0.1300595 CI(0.10770209, 0.15241699), doubling time(5.32946), CI (4.547703,  6.435782)
-# After:  daily growth rate: 0.0526358 CI(0.04672014 0.05855146), doubling time(13.16874), CI (11.838257 14.836153)
-# Clearly, the lockdown has made difference.Need to fit data separately for these two periods
-
-
-
-############################################################################################
-#A.5.Estimate fit for incidence after end of first lockdown ie 15 April 2020 to 31 May 2020
-############################################################################################
-nrow(mhinci)  #total days= 84
-
-lockdownafter.fit <- fit(maha_incidence_object[38:84])
-
-lockdownafter.fit
-plot(maha_incidence_object[38:84]) %>% add_incidence_fit(lockdownafter.fit)
-
-
-##########################################################################################
-#A.5. Estimate fit for second and third lockdown period (from 15 April 2020 to 17 May 2020 )
-#by splitting data at end of second lockdown(3rd May 2020) for period 
-##########################################################################################
-locksplit2 <- fit(maha_incidence_object[38:84], split = as.Date("2020-05-03"), level = 0.95, quiet = FALSE)
-
-locksplit2
-
-# Result: It is clear from the locksplit2 plot graph that before start of lockdown and after have two separate growth rates.
-# Before: daily growth rate: 0.06686441 CI(0.03592039 0.09780843), doubling time(10.36646), CI (7.086784 19.29676)
-# After:  daily growth rate: 0.03972636 CI(0.03067725 0.04877547), doubling time(17.44804), CI (14.210978 22.59483)
-# Need to fit data separately for these two periods
-
-plot(maha_incidence_object) %>% add_incidence_fit(locksplit2)
-
-
 #####################################################
 #A.6.Estimating different splits across entire period
 #####################################################
@@ -425,22 +227,11 @@ fig11x <- plot(maha_incidence_object[1:16], color = "blue", border = "white") %>
        subtitle="09 March 2020 to 24 March 2020 (pre-lockdown)")
 fig11x
 
-# ggsave(path = plot_save, 
-#        filename = "11x_MH_daily_incidence_beforelock1_linearfit_plot.tiff") 
-
-#Result: Daily Growth Rate: 0.03898104 (CI: -0.04563312, 0.1235952)
-# Case doubling time in days: 17.78165 (CI: 5.608204, -15.18956)
-#Note: it is clear from above that the pre-lockdown period data do not provide
-#conclusive estimates as the CIs for R0 and doubling rates crosses zero.
-# Or I can say model not fitted well?
-
-
 
 #####################################################################################
 #A.6.2.Estimate fit for incidence between first lockdown ie 25 March to 14 April 2020
 #####################################################################################
 
-# in other words estimate if growth rates are different for before and after lockdown-1 period
 lockdown1.fit <- fit(maha_incidence_object[17:37])
 
 lockdown1.fit
@@ -449,15 +240,6 @@ fig11y <- plot(maha_incidence_object[17:37], color = "blue", border = "white") %
   labs(title="Observed and modelled incidence of COVID-19 cases in Maharashtra-India",
        subtitle="24 March 2020 to 14 April 2020 (lockdown-1)")
 fig11y
-
-# ggsave(path = plot_save, 
-#        filename = "11y_MH_daily_incidence_duringlock1_linearfit_plot.tiff") 
-
-#Result: Daily Growth Rate: 0.1792707 (CI: 0.1386052 0.2199363)
-# Case doubling time in days: 3.866482 (CI: 3.151581 5.000876)
-#Note: it is clear from above that the during the lockdown period the infection was actually started
-# and case doubling rate was higher.
-
 
 
 ################################################################################
@@ -472,11 +254,6 @@ fig11z <- plot(maha_incidence_object[38:56], color = "blue", border = "white") %
   labs(title="Observed and modelled incidence of COVID-19 cases in Maharashtra-India",
        subtitle="15 April 2020 to 03 May 2020 (lockdown-2)")
 fig11z
-
-#Result: Daily Growth Rate: 0.06686441 (CI: 0.03592039 0.09780843)
-# Case doubling time in days: 10.36646 (CI: 7.086784 19.29676)
-# It is clear that the effect of lockdown-1 was only felt during lockdown-2 as 
-# case growth rates were decreased in this time and case doubling time increased to 10 days.
 
 ################################################################################
 #A.6.4. Estimate fit for incidence For third lockdown period 
@@ -493,12 +270,6 @@ fig11xy <- plot(maha_incidence_object[57:70], color = "blue", border = "white") 
 fig11xy
 
 
-#Result: Daily Growth Rate: 0.03412093 (CI: 0.003262453 0.06497941)
-# Case doubling time in days: 20.31443 (CI: 10.66718 212.4619)
-# It is clear that the lockdown-1 and 2 had further effect and case doubling rate 
-# increased to 20 days for the third lockdown period.
-
-
 ################################################################################
 #A.6.5. Estimate fit for incidence For fourth lockdown period 
 #starting from 18 May 2020 to 31 May 2020 (which includes start of lockdown-3)
@@ -512,13 +283,6 @@ fig11xz <- plot(maha_incidence_object[71:84], color = "blue", border = "white") 
   labs(title="Observed and modelled incidence of COVID-19 cases in Maharashtra-India",
        subtitle="18 May 2020 to 31 May 2020 (lockdown-4)")
 fig11xz
-
-
-#Result: Daily Growth Rate: 0.01521231 (CI: -0.0033892 0.03381381)
-# Case doubling time in days: 45.5649 (CI: 20.49894 -204.5165)
-# It is clear that the lockdown-4 had further effect and case doubling rate 
-# increased to 45 days for the third lockdown period.
-
 
 
 #######################################################################################
@@ -564,21 +328,11 @@ fig12 <- plot(maha_incidence_object, color = "blue", border ="white") %>% add_in
 
 fig12
 
-ggsave(path = plot_save, 
-       filename = "12_MH_daily_incidence_with_five_linearfit_plot_manuscript.tiff") 
-
-ggsave(path = plot_save, 
-       filename = "12_MH_daily_incidence_with_five_linearfit_plot_manuscript.jpeg") 
+ggsave(filename = "12_MH_daily_incidence_with_five_linearfit_plot_manuscript.tiff") 
 
 invisible(dev.off())
 
 #zooming on certain sections of the graph
-#source: Using ggplot2, can I insert a break in the axis?
-#link: https://stackoverflow.com/questions/7194688/using-ggplot2-can-i-insert-a-break-in-the-axis
-#link: https://rdrr.io/cran/ggforce/man/facet_zoom.html
-#link: https://stackoverflow.com/questions/52665619/how-to-change-the-position-of-the-zoomed-area-from-facet-zoom
-#link: https://www.data-imaginist.com/2019/the-ggforce-awakens-again/
-
 
 #library(ggforce)
 fig12x <- fig12 +
@@ -587,11 +341,7 @@ theme(zoom.y = element_blank(), validate = FALSE)
 
 fig12x
 
-ggsave(path = plot_save, 
-       filename = "12x_Zoomed_MH_daily_incidence_with_five_linearfit_plot_manuscript.tiff") 
-
-ggsave(path = plot_save, 
-       filename = "12x_Zoomed_MH_daily_incidence_with_five_linearfit_plot_manuscript.jpeg") 
+ggsave(filename = "12x_Zoomed_MH_daily_incidence_with_five_linearfit_plot_manuscript.tiff") 
 
 invisible(dev.off())
 
@@ -618,46 +368,13 @@ library("epitrix")
 # I used mu=3.9 days , SD=2.85 from Rajendrakumar etal(2020)-Epidemic Landscape and Forecasting of SARS-CoV-2 in India
 #Link-https://www.medrxiv.org/content/10.1101/2020.04.14.20065151v1.full.pdf
 
-#Another study: Saurabh etal(2020)	Serial interval, basic reproduction number and prediction of COVID-19 epidemic size in Jodhpur, India
-# Mu = 6.75 days, SD = 3.76 days
-#link-https://www.medrxiv.org/content/10.1101/2020.07.03.20146167v1.full.pdf
-
-
-mu <- 3.9 # this is from Rajendrakumar etal(2020) previously used Saurabh etal(202)=6.75
-sigma <- 2.85  # this is from Rajendrakumar etal(2020) previously used Saurabh etal(202)=3.76
-param <- gamma_mucv2shapescale(mu, sigma / mu)
+mu <- 3.9 # this is from Rajendrakumar etal(2020)
+sigma <- 2.85  # this is from Rajendrakumar etal(2020)
+param <- gamma_mucv2shapescale(mu, sigma / mu)  #used epitrix package here to  get shape and scale. https://www.repidemicsconsortium.org/projections/
 w <- distcrete("gamma", interval = 1,
                 shape = param$shape,
                 scale = param$scale, w = 0)
 
-
-#########################################################
-# B.1. Estimating R0 for overall fit (i.e. entire period)
-#########################################################
-# Note: Assuming linear fit for all data will give wrong estimates.
-# It is clear from locksplit graph that we have two separate growth rates before and after lockdown
-# But do following estimation for check
-
-set.seed(1) # this prevents changes in estimates by running same sample
-loglinear_R0 <- lm2R0_sample(incidence.fit$model, w, n = 1000)
-
-summary(loglinear_R0) #to know mean, median, min. and max
-# Min.   1st Qu.  Median  Mean   3rd Qu.    Max. 
-# 1.262   1.296   1.304   1.304   1.311   1.340 
-
-quantile(loglinear_R0, c(0.025, 0.975)) # to know 95% credibility interval
-#95% CI: 1.280140, 1.326397
-
-hist(loglinear_R0, col = "blue", border = "white", main = "Distribution of R0")
-fig13 <- recordPlot() 
-invisible(dev.off())
-
-fig13
-
-# ggsave(path = plot_save, 
-#        filename = "13_epitrix_loglinear_R0_plot.tiff") 
-
-#Conclusion: Mean R0 for entire study period remained 1.304 (95% CI: 1.280140, 1.326397 )
 
 ##############################################
 # B.2. estimating R0 for pre lockdown-1 period
@@ -680,9 +397,6 @@ fig14 <- recordPlot()
 invisible(dev.off())
 
 fig14
-
-# ggsave(path = plot_save, 
-#        filename = "14_epitrix_loglinear_beforelock1_R0_plot.tiff") 
 
 
 ##########################################
@@ -710,10 +424,6 @@ invisible(dev.off())
 
 fig15
 
-# ggsave(path = plot_save, 
-#        filename = "15_epitrix_loglinear_lock1_R0_plot.tiff") 
-
-
 
 ##########################################
 # B.4. estimating R0 for lockdown-2 period
@@ -737,11 +447,6 @@ fig16 <- recordPlot()
 invisible(dev.off())
 
 fig16
-
-# ggsave(path = plot_save, 
-#        filename = "16_epitrix_loglinear_lock2_R0_plot.tiff") 
-
-
 
 ##########################################
 # B.5. estimating R0 for lockdown-3 period
@@ -767,12 +472,6 @@ invisible(dev.off())
 
 fig17
 
-# ggsave(path = plot_save, 
-#        filename = "17_epitrix_loglinear_lock3_R0_plot.tiff") 
-
-
-
-
 ##########################################
 # B.6. estimating R0 for lockdown-4 period
 ##########################################
@@ -797,57 +496,6 @@ invisible(dev.off())
 
 fig18
 
-# ggsave(path = plot_save, 
-#        filename = "18_epitrix_loglinear_lock4_R0_plot.tiff") 
-
-
-#Generating one common plot for all R0 estimates & annotating it with common title
-#Source-1: ggarrange and annotate : http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/
-#Source-2: annotate_figure:  https://rpkgs.datanovia.com/ggpubr/reference/annotate_figure.html#arguments
-#Source-3: ggarrange: https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html
-#Source-4: Patchwork: https://patchwork.data-imaginist.com/articles/patchwork.html
-#Source-5: Patchwork: https://patchwork.data-imaginist.com/articles/guides/assembly.html
-
-
-#install.packages("ggpubr")
-#library(ggpubr)
-
-invisible(dev.off())
-fig19a <- ggarrange(fig14, fig15, fig16, fig17, fig18, nrow = 3, ncol = 2, 
-                    widths = c(1,1),
-                    labels = c("Pre-Lockdown (9th-23rd March 2020)",
-                               "Lockdown-1 (24th March-14th April 2020)",
-                               "Lockdown-2 (15th April-3rd May 2020)", 
-                               "Lockdown-3 (4th May-17th May 2020)", 
-                               "Lockdown-4 (18th May-31st May 2020)"),
-                    font.label = list(size = 12, color = "black", face = "plain", family = NULL),
-                    hjust = -0.8,  # this adjust horizontal shift of label and brings it to the center,
-                    vjust = 3,  # this adjust vertical shift of label and puts it just above the histo bars,
-                    align = "hv"
-)
-fig19a
-
-#Annotate Arranged Figure (annotate_figure) :
-fig19 <- annotate_figure(fig19a,
-                          top = text_grob("Estimated R0 for different phases of lockdown in Maharashtra \n(9 March-31 May 2020)", color = "black", face = "bold", size = 14),
-                          left = text_grob("No. of samples drawn", color="black", rot= 90),
-                          
-)
-
-fig19
-# to aovid error in bulck code run do following
-try(log("not a number"), silent = TRUE)
-print("Errors cant stop me")
-
-
-ggsave(path = plot_save, 
-      filename = "19_epitrix_loglinear_R0_combined_plot.tiff") 
-
-# to aovid error in bulck code run do following
-try(log("not a number"), silent = TRUE)
-print("Errors cant stop me")
-
-invisible(dev.off())
 
 #################################################################################################
 #C.Estimating current effective Re for lockdown phases, day-to-day basis and overall infectivity
@@ -859,188 +507,6 @@ invisible(dev.off())
 
 library("EpiEstim")
 #??EpiEstim
-
-
-#1. For incidence data
-
-#renaming column name in mhinci dataframe
-#install.packages("reshape")
-# library(reshape)
-# mhinci <-rename(mhinci, c(MH = "I"))
-
-res_incidence_parametric_si <- estimate_R(mhinci, 
-                                          method="parametric_si",
-                                          config = make_config(list(
-                                            mean_si = 3.9, 
-                                            std_si = 2.85))) 
-
-head(res_incidence_parametric_si)
-
-plot(res_incidence_parametric_si, legend = FALSE)
-
-fig20 <- recordPlot() 
-invisible(dev.off())
-
-fig20
-
-
-# ggsave(path = plot_save, 
-#        filename = "20_Epiestim_daily_R0_prametric_plot_manuscript.tiff") 
-
-
-#######################################################
-#C.1. Incorporating uncertainty around Serial interval
-#######################################################
-
-# From excel file:Serial Interval Estimates_24Nov2020;sheet(Serial_interval_final_studies): Mean serial interval:	min = 2.97	keep at 3.9 (estimated by Rajendrakumar etal.)	max = 7.5
-# From excel file:Serial Interval Estimates_24Nov2020;sheet(Serial_interval_final_studies): SD for serial interval: min= 2	keep at 2.85 (estimated by Rajendrakumar etal.)	max = 10.9
-
-#??EpiEstim
-#?EpiEstim::make_config
-# check ?EpiEstim::make_config to know more about the parameters
-set.seed(1) # this prevents changes in estimates by running same sample
-res_incidence_uncertain_si <- estimate_R(mhinci, 
-                                         method="uncertain_si",
-                                         config = make_config(list(
-                                           mean_si = 3.9, std_mean_si = 1,
-                                           min_mean_si = 2.97, max_mean_si = 7.5,
-                                           std_si = 2.85, std_std_si = 0.5,
-                                           min_std_si = 2, max_std_si = 10.9,
-                                           n1 = 1000, n2 = 1000))) 
-#above values are Mean, SD, Min, MAX values calculated in "excel sheet- serial interval estimates" based on reported values in the literature
-
-# to aovid error in bulck code run do following
-try(log("not a number"), silent = TRUE)
-print("Errors cant stop me")
-
-# Warning messages:
-#   1: In check_config(config, method) :
-#   The distribution you chose for the mean SI is not centered around
-# the mean.
-# 2: In check_config(config, method) :
-#   The distribution you chose for the std of the SI is not centered 
-# around the mean.
-
-
-head(res_incidence_uncertain_si)
-
-plot(res_incidence_uncertain_si, legend = FALSE)
-
-fig21 <- recordPlot() 
-invisible(dev.off())
-
-fig21
-
-# ggsave(path = plot_save, 
-#        filename = "19_Epiestim_daily_R0_uncertain_plot_manuscript.tiff") 
-
-
-tiff(file="/Users/preshitambade/Downloads/Corona-CEA/1-COVID-19_CEA_study/2-COVID-19-Model/5-Epimodel_demo/2_epimodel_results/7_epimodel_results_formanuscript_8Dec2020/21_Epiestim_daily_R0_uncertain_plot_manuscript.tiff",
-units="in", width=5, height=4, res=300)
-plot(res_incidence_uncertain_si, legend = FALSE)
-invisible(dev.off())
-
-
-#combine figure
-#fig34
-
-##########################################
-#C.2. Incorporating lockdown in estimation
-##########################################
-#Note:check the following code and match it to the dataset
-
-#lockdown dates reference:
-#https://timesofindia.indiatimes.com/travel/destinations/india-lockdown-3-0-nationwide-lockdown-extends-till-may-17-parts-of-country-will-open-but-no-rail-road-air-travel-for-now/as75493510.cms
-#data start day-2020-03-09(1st day)
-#first lockdown start-2020-03-25 (17th day from 2020-03-09)
-#second lockdown start-2020-04-15 (38th day from 2020-03-09)
-#third lockdown start-2020-05-04 (57th day from 2020-03-09)
-#fourth lockdown start- 2020-05-18 (71th day from 2020-03-09)
-#fourth lockdown end i.e. data end date- 2020-05-31(84th dat from 2020-03-09)
-#next 30 day date = 2020-06-30 ie 30 June 2020 (total 114 days)
-head(mhinci)
-tail(mhinci)
-
-# Following code corresponds to the different phases of lockdown.
-t_start <- c(2, 17, 38, 57, 71) # starting at 2 as conditional on the past observation.
-
-t_end <- c(16, 37, 56, 70, 84) #need to keep changing last digit which is the last calendar day in dataset
-
-
-#1. for incidence data
-res_before_during_after_closure_parametric <- estimate_R(mhinci, 
-                                                         method="parametric_si",
-                                                         config = make_config(list(
-                                                           t_start = t_start,
-                                                           t_end = t_end,
-                                                           mean_si = 3.9, 
-                                                           std_si = 2.85)))
-
-res_before_during_after_closure_parametric 
-
-
-plot(res_before_during_after_closure_parametric, "R") +
-  geom_hline(aes(yintercept = 1), color = "red", lty = 2)
-#this R0 estimation looks correct so use only incidence data for such estimation
-
-fig22 <- recordPlot() 
-invisible(dev.off())
-
-fig22
-
-
-# ggsave(path = plot_save, 
-#        filename = "20_Epiestim_lockdownphases_R0_breakup_parametric_plot_manuscript.tiff") 
-
-#######################################################
-#C.3. Incorporating uncertainty around Serial interval
-#######################################################
-set.seed(1) # this prevents changes in estimates by running same sample
-res_before_during_after_closure_uncertain <- estimate_R(mhinci, 
-                                                        method="uncertain_si",
-                                                        config = make_config(list(
-                                                          t_start = t_start,
-                                                          t_end = t_end,
-                                                          mean_si = 3.9, std_mean_si = 1,
-                                                          min_mean_si = 2.97, max_mean_si = 7.5,
-                                                          std_si = 2.85, std_std_si = 0.5,
-                                                          min_std_si = 2, max_std_si = 10.9,
-                                                          n1 = 1000, n2 = 1000))) 
-
-# to aovid error in bulck code run do following
-try(log("not a number"), silent = TRUE)
-print("Errors cant stop me")
-
-
-res_before_during_after_closure_uncertain
-#Note: values from this command are used in table-1 to show Re for different phases of lockdown.
-
-
-plot(res_before_during_after_closure_uncertain, "R") +
-  geom_hline(aes(yintercept = 1), color = "red", lty = 2)
-
-fig23 <- recordPlot() 
-invisible(dev.off())
-
-fig23
-
-
-ggsave(path = plot_save, 
-       filename = "23_Epiestim_lockdownphases_R0_breakup_uncertain_plot_manuscript.tiff") 
-
-#Note: I get following warning:
-# Warning messages:
-#   1: In check_config(config, method) :
-#   The distribution you chose for the mean SI is not centered around
-# the mean.
-# 2: In check_config(config, method) :
-#   The distribution you chose for the std of the SI is not centered 
-# around the mean.
-
-#Note:- all the examples given in tutorials use only daily incidence data for R0 estimation.
-#So follow the path and dont use all status file for final analysis as it is not giving correct R0
-
-
 
 #################################################################################
 #C.4. Incorporating uncertainty around Serial interval and estimating daily (Re)
@@ -1085,56 +551,7 @@ invisible(dev.off())
 fig24
 
 
-ggsave(path = plot_save,
-       filename = "24_Epiestim_daily_R0_breakup_uncertain_5daylsiding_plot_manuscript.tiff")
-#Result: one day estimate for day 2 are not included due as no cases were reported for the day2.
-# From figure, it is clear the that Re was high during first 30 days of pandemic in the state which was later brought down.
-# So, for projection purposes as per discussion with Dr. Pakhale, I can use Re estimated from the data up to 14th April and
-# project the cases for remaining days if the lockdown and compare it with the actual number of cases.
-
-
-#Note: I get following warning:
-# Warning messages:
-#   1: In check_config(config, method) :
-#   The distribution you chose for the mean SI is not centered around
-# the mean.
-# 2: In check_config(config, method) :
-#   The distribution you chose for the std of the SI is not centered 
-# around the mean.
-
-
-
-####################################
-#C.5. Estimating Overall Infectivity
-####################################
-
-##in earlyR package use the estimation asked to use overall_infectivity in EpiEstim library.
-##so here overall infectivity is estimated as follows
-
-#?overall_infectivity #this vignette have example to follow
-##Ref. Cori, A. et al. A new framework and software to estimate time-varying reproduction numbers during epidemics (AJE 2013).
-
-## compute overall infectivity
-##res_incidence_parametric_si - object contains $si_distr so use it for following estimate
-
-lambda <- overall_infectivity(mhinci$I, res_incidence_parametric_si$si_distr) 
-par(mfrow=c(2,1))
-plot(mhinci$I, type = "s", xlab = "time (days)", ylab = "incidence")
-title(main = "Epidemic curve")
-plot(lambda, type = "s", xlab = "time (days)", ylab = "Infectivity")
-title(main = "Overall infectivity")
-
-fig25 <- recordPlot() 
-invisible(dev.off())
-
-fig25
-
-ggsave(path = plot_save,
-       filename = "25_Epiestim_overall_infectivity_lambda_plot.tiff")
-
-#Note: plot is not able to save
-## here getting si_distr = Vector of probabilities giving the discrete distribution of the serial interval is very improtant
-
+ggsave(filename = "24_Epiestim_daily_R0_breakup_uncertain_5daylsiding_plot_manuscript.tiff")
 
 
 #####################
@@ -1156,152 +573,22 @@ ggsave(path = plot_save,
 
 library("projections")
 #?project
-set.seed(1) # this prevents changes in estimates by running same sample
-future_i <- project(maha_incidence_object, R = loglinear_R0, n_sim = 1000, si = w, n_days = 30)
-#loglinear_R0 is from B.1 above
-
-future_i
-
-plot(future_i)
-
-dev.off()  #removes plot from plot window    
-
-predicted_n <- colSums(future_i) # getting column wise summary of each simulation
-
-summary(predicted_n)
-# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-# 164152  174527  176886  176891  179251  188538 
-
-mean(predicted_n) #176890.7
-
-hist(predicted_n, col = "darkred", border = "white",
-     main = "Prediction: new cases in 30 days",
-     xlab = "Total number of new cases")
-
-
-
-# plotting incidence with projections
-large_txt <- ggplot2::theme(text = ggplot2::element_text(size = 16),
-                            axis.text = ggplot2::element_text(size = 12))
-
-rotate_x_txt <- theme(axis.text.x = element_text(angle = 45,
-                                                 hjust = 1))
-
-plot(maha_incidence_object) %>%
-  add_projections(future_i, c(.1, .5, .9)) +
-  theme_bw() +
-  scale_x_date() +
-  large_txt +
-  rotate_x_txt + 
-  labs(title = "Short term forcasting of new cases",
-       subtitle = "upto ")
-## Scale for 'x' is already present. Adding another scale for 'x', which
-## will replace the existing scale.
-
-
-##########################
-#D.1. Alternative Plotting
-##########################
-
-
-# 1. Using only incidence data for 30 days from last date
-set.seed(1)
-pred_fwd_days <- 30 #10, 15
-date_range <- 1:(which(get_dates(maha_incidence_object) == as.Date("2020-05-31")) - pred_fwd_days)
-
-
-test_pred <- project(maha_incidence_object[date_range],
-                     R = median(loglinear_lock3_R0),  #loglinear_afterlock1_R0 #loglinear_R0
-                     si = w,
-                     n_days = pred_fwd_days, n_sim = 1000)
-
-
-test_pred_median_counts <- test_pred %>% as.data.frame() %>% 
-  pivot_longer(-dates, names_to = "simulation", values_to = "incidence") %>% 
-  group_by(dates) %>% summarise(incident_cases = as.integer(median(incidence))) %>% 
-  mutate(data_type = "projection")
-
-test_pred_median_counts %>%
-  bind_rows(tibble(dates=get_dates(maha_incidence_object),
-                   incident_cases=get_counts(maha_incidence_object),
-                   data_type="observed")) %>%
-  ggplot(aes(x=dates, y=incident_cases, colour=data_type)) +
-  geom_point() +
-  geom_line() +
-  labs(x="", y="Daily incident confirmed cases",
-       title="Observed versus growth-phase projection of incident cases\nin Maharashtra",
-       subtitle=paste("(projection based on observed case counts up to", 
-                      #format(maha_incidence_peak - days(pred_fwd_days), "%d %B %Y"),
-                      ")")) +
-  theme(legend.position="top", legend.title = element_blank())
-
-
-#Result: it shows the projections are in right direction
-
-fig26 <- recordPlot() 
-invisible(dev.off())
-
-fig26
-
-invisible(dev.off())
-# ggsave(path = plot_save, 
-#        filename = "24_Projection_Testing_plot.tiff") 
-
-
-################################################################
-#D.2. projecting for future 30 days using data from last 30 days
-################################################################
-
-set.seed(1)
-pred_fwd_days <- 13 # 5, 30 #From 31st backwards, 18th May is 14th day so last 13 day data used for making projects for next 30 days i.e. upto 30th June 2020
-date_range <- which(get_dates(maha_incidence_object) == as.Date("2020-05-31")):(length(get_dates(maha_incidence_object)) - pred_fwd_days)
-
-test_pred_30day <- project(maha_incidence_object[date_range],
-                           R = median(loglinear_lock4_R0),  # Re for last phase of lockdown used to make projections for coming 30 days.
-                           si = w,
-                           n_days = 43, n_sim = 1000) # we want next 30 day projections so 13+30=43
-
-
-test_pred_30day_median_counts <- test_pred_30day %>%
-  as.data.frame() %>%
-  pivot_longer(-dates,
-               names_to="simulation",
-               values_to="incidence") %>%
-  group_by(dates) %>%
-  summarise(incident_cases=as.integer(median(incidence))) %>%
-  mutate(data_type = "projection")
-
-
-test_pred_30day_median_counts %>%
-  bind_rows(tibble(dates=get_dates(maha_incidence_object),
-                   incident_cases=get_counts(maha_incidence_object),
-                   data_type="observed")) %>%
-  ggplot(aes(x=dates, y=incident_cases, colour=data_type)) +
-  geom_point() +
-  geom_line() +
-  labs(x="", y="Daily incident confirmed cases",
-       title=" 30 Day Projection of incident cases in Maharashtra",
-       subtitle=paste("[projection based on observed case counts \nfrom 18 May 2020 to 31 May 2020]")) +
-  theme(legend.position="top", legend.title = element_blank())
-
-fig27 <- recordPlot()
-invisible(dev.off())
-
-fig27
-
-# ggsave(path = plot_save,
-#        filename = "25_Projection_Upto_8June2020_plot.tiff")
-
-invisible(dev.off())
 
 ##########################################################################################
 #D.3. Project future cases upto 31 May 2020 based on prelockdown and lockdown1 combined R0
 ##########################################################################################
 
 #D.3.A1. To get this first get the loglinear R0 for pre-lockdown and lockdown-1 period combined
+set.seed(1)
 lockdown01.fit <- fit(maha_incidence_object[1:37]) #1-37 days= prelockdown+lockdown-1 period
 lockdown01.fit
 #plot(maha_incidence_object[71:84]) %>% add_incidence_fit(lockdown01.fit)
+
+
+# set.seed(1)
+# lockdown01.fit <- fit(maha_incidence_object) #1-37 days= prelockdown+lockdown-1 period
+# lockdown01.fit
+
 
 figlock01fit <- plot(maha_incidence_object[1:37], color = "blue", border = "white") %>% add_incidence_fit(lockdown01.fit)+
   labs(title="Observed and modelled incidence of COVID-19 cases in Maharashtra-India",
@@ -1316,14 +603,9 @@ figlock01fit
 #Here I used mu=3.9 days , SD=2.85 from Rajendrakumar etal(2020)-Epidemic Landscape and Forecasting of SARS-CoV-2 in India
 #Link-https://www.medrxiv.org/content/10.1101/2020.04.14.20065151v1.full.pdf
 
-#previously used Saurabh etal(2020)	Serial interval, basic reproduction number and prediction of COVID-19 epidemic size in Jodhpur, India
-# Mu = 6.75 days, SD = 3.76 days
-#link-https://www.medrxiv.org/content/10.1101/2020.07.03.20146167v1.full.pdf
-
-
-mu2 <- 3.9 # this is from Rajendrakumar etal(2020) previously used Saurabh etal(202)=6.75
-sigma2 <- 2.85  # this is from Rajendrakumar etal(2020) previously used Saurabh etal(202)=3.76
-param2 <- gamma_mucv2shapescale(mu2, sigma2 / mu2)
+mu2 <- 3.9 # this is from Rajendrakumar etal(2020) 
+sigma2 <- 2.85  # this is from Rajendrakumar etal(2020)
+param2 <- gamma_mucv2shapescale(mu2, sigma2 / mu2)  #used epitrix package here to  get shape and scale. https://www.repidemicsconsortium.org/projections/
 w2 <- distcrete("gamma", interval = 1,
                shape = param2$shape,
                scale = param2$scale, w = 0)
@@ -1349,13 +631,13 @@ hist(loglinear_lock01_R0, col = "blue", border = "white", main = "Distribution o
 
 
 #D.3.A4. Test projection based on R0 for pre-and=lockdown-1 period
-set.seed(1)
 pred_fwd_days <- 84 # substracting total number of days from date rane object allows the projection run for first 37 days of the data
 date_range <- which(get_dates(maha_incidence_object) == as.Date("2020-05-31")):(length(get_dates(maha_incidence_object)) - pred_fwd_days)
 
+set.seed(1)
 test_pred_pre_andlock1 <- project(maha_incidence_object[date_range],
                            R = median(loglinear_lock01_R0),  # Re for last phase of lockdown used to make projections for coming 30 days.
-                           si = w,
+                           si = w2,
                            n_days = 37, n_sim = 1000) # we want next 37 day projections ie. total days of pre-and-lockdown-1 period
 
 
@@ -1386,8 +668,7 @@ invisible(dev.off())
 
 fig28a
 
-ggsave(path = plot_save,
-       filename = "28a_Projection_test_Upto_14April2020_plot.tiff")
+ggsave(filename = "28a_Projection_test_Upto_14April2020_plot.tiff")
 
 invisible(dev.off())
 
@@ -1410,6 +691,14 @@ pred_lock01_median_counts <- pred_lock01 %>%
   mutate(data_type = "projection")
 
 
+# Note: in my previous projected estimation file (1_incidence_projectiond_8December2020.csv) from Dec08, 2021, I by mistake used R0 for entire period to get projected cases for the period 15 April-31st May.
+# this has caused underestimation of projected cases. While checking the codes in this file I have determined this mistake. I will have to revise my projected cases.
+# My new estimates show that daily new cases could have reached to 67,889 cases on 31st May 2021 (in old file it is 12,553) if virus would have allowed to spread unrestricted. And 
+# total new cases could have reached to 631,891 new cases (in old file it is 162,156) during the projected period (15 April to 31 May 2021). Please check the "pred_lock01_median_counts"
+# object to confirm this. I will have to now revise my manuscript and all cost estimates for the projected scenario accordingly.
+# Ghosh etal(2020)-COVID-19 in India: Statewise Analysis and Prediction study show that in severe condition, the cumulative cases in Maharashtra could 
+# have reached to 196,103. 
+
 
 #Plotting below
 pred_lock01_median_counts %>%
@@ -1419,6 +708,7 @@ pred_lock01_median_counts %>%
   ggplot(aes(x=dates, y=incident_cases, colour=data_type)) +
   geom_point() +
   geom_line() +
+  #scale_y_continuous(breaks = c(0, 1000, 2000, 3000, 5000, 10000, 20000, 30000, 40000, 50000, 60000)) +
   labs(x="", y="Daily incident confirmed cases",
        title="Daily observed vs projected COVID-19 incident cases in Maharashtra-India",
        caption = "Note: projection is based on observed case counts from 09 March to 14 April 2020",   
@@ -1430,19 +720,40 @@ invisible(dev.off())
 
 fig28b
 
-ggsave(path = plot_save,
-       filename = "28b_Projection_Upto_31May2020_basedonprelockdown1R0_plot.tiff")
-
-ggsave(path = plot_save,
-       filename = "28b_Projection_Upto_31May2020_basedonprelockdown1R0_plot.jpeg")
+ggsave(filename = "28b_Projection_Upto_31May2020_basedonprelockdown1R0_plot.tiff")
 
 invisible(dev.off())
 
 #rm(list=setdiff(ls(), "x")) remove all but "x" object from R environment
-###############################################################################################
-# Conclusion: Use Rajendrakumar etal(2020) estimates for all the calculations as they were 
-# previoulsy used in all preliminary results.
-###############################################################################################
+
+
+
+#zooming on certain sections of the graph
+
+#library(ggforce)
+
+
+fig28c <- pred_lock01_median_counts %>%
+  bind_rows(tibble(dates=get_dates(maha_incidence_object),
+                   incident_cases=get_counts(maha_incidence_object),
+                   data_type="observed")) %>%
+  ggplot(aes(x=dates, y=incident_cases, colour=data_type)) +
+  geom_point() +
+  geom_line() +
+  #scale_y_continuous(breaks = c(0, 1000, 2000, 3000, 5000, 10000, 20000, 30000, 40000, 50000, 60000)) +
+  labs(x="", y="Daily incident confirmed cases",
+       title="Daily observed vs projected COVID-19 incident cases in Maharashtra-India",
+       caption = "Note: projection is based on observed case counts from 09 March to 14 April 2020",   
+       subtitle=paste("(from 9 March to 31 May 2020)")) +
+  theme(legend.position="top", legend.title = element_blank())
+
+
+
+fig28x <- fig28c +
+  ggforce::facet_zoom(xlim = c(as.Date("2020-04-14"),as.Date("2020-05-31")), ylim = c(0, 3000), horizontal = FALSE) +
+  theme(zoom.y = element_blank(), validate = FALSE)
+
+fig28x
 
 
 #######################################################
@@ -1510,6 +821,13 @@ cumlock01_proj_actual <- colSums(mhinci_lock01_predict_original[38:84, c(2,3,4,5
 
 cumlock01_proj_actual  # I=64975, projected= 162156, difference= 97181, D = 2108, R = 29070
 
+#Note Ghosh etal(2020)-COVID-19 in India: Statewise Analysis and Prediction study show that in severe condition, the cumulative cases in Maharashtra could 
+# have reached to 196,103. My estimates show that daily new cases could have reached to 67,889 cases if virus would have allowed to spread unrestrictedly. And 
+# total new cases could have reached to 631,891 new cases during the projected period (15 April to 31 May 2021)
+
+
+
+
 ################################
 #Working on the predicted values
 ################################
@@ -1532,7 +850,7 @@ cumlock01_proj_actual  # I=64975, projected= 162156, difference= 97181, D = 2108
 
 #Saving median values of projected incidence in csv file
 write.csv(mhinci_lock01_predict_original,
-          "/Users/preshitambade/Downloads/Corona-CEA/1-COVID-19_CEA_study/2-COVID-19-Model/5-Epimodel_demo/2_epimodel_results/7_epimodel_results_formanuscript_8Dec2020/1_incidence_projectiond_8December2020.csv",
+          "1_incidence_projectiond.csv",
       row.names = FALSE)
 
 #to run entire script press: cmd+shift+enter
@@ -1554,12 +872,6 @@ quit(save = "no", status = 0, runLast = TRUE)
 # quit("yes")
 # # }
 # 
-
-
-
-
-
-
 
 
 
